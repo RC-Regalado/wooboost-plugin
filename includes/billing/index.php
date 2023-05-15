@@ -1,13 +1,6 @@
 
 <h1>Ventas realizadas</h1>
-<?php
-require_once('meta.php');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  analize_meta();
-}
-
-?>
 <form method="post" action="">
   <h4>Seleccione los datos a incluir en la estadística:</h4>
   <div>
@@ -22,24 +15,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <input type="checkbox" name="order_data[]" value="billing_address"> Dirección de facturación del cliente<br>
     <input type="checkbox" name="order_data[]" value="payment_method"> Métodos de pago utilizados<br>
     <input type="checkbox" name="order_data[]" value="products"> Productos<br>
+    <input type="checkbox" name="order_data[]" value="total"> Monto total<br>
   </div>
   <br>
-  <button type="submit" class="button">Descargar estadísticas</button>
+  <button type="submit" class="button">Generar informe</button>
 </form>
+<?php
+require_once('meta.php');
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  echo generate_csv();
+}
 
-<table class="wp-list-table">
-    <thead>
-        <tr>
-            <th>Fecha</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Tipo de pago</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+?>
 
 <style>
 table {
