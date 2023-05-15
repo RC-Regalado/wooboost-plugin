@@ -109,6 +109,30 @@ function descuento_plania_gateway_init()
                 'redirect' => $this->get_return_url($order)
             );
         }
+        public function email_instructions($order, $sent_to_admin, $plain_text = false)
+        {
+            if ($this->id === $order->get_payment_method()) {
+                $to = 'destinatario@ejemplo.com';
+                $subject = 'Asunto del correo electrónico';
+                $body = 'Este es el cuerpo del correo electrónico';
+                $pdf_path = '/ruta/al/archivo.pdf';
+
+                $headers = array(
+                    'From: Tu Nombre <tu@correo.com>',
+                    'Content-Type: text/html; charset=UTF-8',
+                );
+                $attachments = array(
+                    $pdf_path,
+                );
+
+                // Envía el correo electrónico con el archivo adjunto
+                if (wp_mail($to, $subject, $body, $headers, $attachments)) {
+                    // Correo electrónico enviado correctamente
+                } else {
+                    // Error al enviar el correo electrónico
+                }
+            }
+        }
     }
     // }}}
 
@@ -159,7 +183,7 @@ function descuento_plania_gateway_init()
     function enable_for_assigned_page($available_gateways)
     {
         if (isset($_COOKIE['compra']) && $_COOKIE['compra'] === 'mercadito') {
-           return $available_gateways;
+            return $available_gateways;
         } else {
             // si no tiene el rol, deshabilita la pasarela de pago
             unset($available_gateways['descuento_plania_gateway']);

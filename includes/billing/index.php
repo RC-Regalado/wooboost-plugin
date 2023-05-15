@@ -1,43 +1,72 @@
-<h1>Hello</h1>
-<?php
-global $wpdb;
-$users = $wpdb->get_results("SELECT ID, user_login FROM {$wpdb->users}");
 
-$options = '';
-foreach ($users as $user) {
-    $options .= '<option value="' . $user->user_login . '">' . $user->user_login . '</option>';
+<h1>Ventas realizadas</h1>
+<?php
+require_once('meta.php');
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  analize_meta();
 }
 
 ?>
-<label for="user">Selecciona un usuario:</label>
-<input type="text" name="user" id="user" list="userlist">
-<datalist id="userlist">
-    <?php echo $options; ?>
-</datalist>
-<select name="user_select" id="user_select">
-    <?php echo $options; ?>
-</select>
+<form method="post" action="">
+  <h4>Seleccione los datos a incluir en la estadística:</h4>
+  <div>
+    <input type="checkbox" name="order_data[]" value="date"> Fecha de la orden<br>
+    <input type="checkbox" name="order_data[]" value="status"> Estado de la orden<br>
+    <input type="checkbox" name="order_data[]" value="customer_name"> Nombre del cliente<br>
+    <input type="checkbox" name="order_data[]" value="dui">DUI<br>
+    <input type="checkbox" name="order_data[]" value="country">País<br>
+    <input type="checkbox" name="order_data[]" value="state">Departamento<br>
+    <input type="checkbox" name="order_data[]" value="phone">Teléfono<br>
+    <input type="checkbox" name="order_data[]" value="customer_email"> Correo electrónico del cliente<br>
+    <input type="checkbox" name="order_data[]" value="billing_address"> Dirección de facturación del cliente<br>
+    <input type="checkbox" name="order_data[]" value="payment_method"> Métodos de pago utilizados<br>
+    <input type="checkbox" name="order_data[]" value="products"> Productos<br>
+  </div>
+  <br>
+  <button type="submit" class="button">Descargar estadísticas</button>
+</form>
 
-  <h1>Factura</h1>
-  <form action="procesar_factura.php" method="POST">
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" required><br>
 
-    <label for="apellido">Apellido:</label>
-    <input type="text" id="apellido" name="apellido" required><br>
+<table class="wp-list-table">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Tipo de pago</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
 
-    <label for="direccion">Dirección:</label>
-    <input type="text" id="direccion" name="direccion" required><br>
+<style>
+table {
+  width: 90%;
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+}
 
-    <label for="telefono">Teléfono:</label>
-    <input type="tel" id="telefono" name="telefono" required><br>
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br>
+</style>
 
-    <label for="dui">DUI:</label>
-    <input type="text" id="dui" name="dui" required><br>
+<?php
+/*
+ *        <?php foreach ($pedidos as $pedido) : ?>
+            <tr>
+                <td><?php echo $pedido['fecha']; ?></td>
+                <td><?php echo $pedido['nombre']; ?></td>
+                <td><?php echo $pedido['precio']; ?></td>
+                <td><?php echo $pedido['tipo_pago']; ?></td>
+            </tr>
+        <?php endforeach; ?>
 
-    <input type="submit" value="Enviar">
-  </form>
-
+ * 
+ * */
+?>
