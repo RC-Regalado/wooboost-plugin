@@ -64,7 +64,10 @@ function analize_meta()
                 case 'customer_name':
                     $order_data['customer_name'] = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
                     break;
-                case 'dui':
+                 case 'type':
+                    $order_data['type'] = get_post_meta($order->ID, "bill_type", true);
+                    break;
+                 case 'dui':
                     $order_data['dui'] = get_post_meta($order->ID, "_billing_dui", true);
                     break;
                 case 'country':
@@ -129,8 +132,11 @@ function headers()
             case 'customer_name':
                 array_push($str, 'Nombre');
                 break;
+            case 'type':
+                array_push($str, 'Tipo de factura');
+                break;
             case 'dui':
-                array_push($str, 'DUI');
+                array_push($str, 'Documento');
                 break;
             case 'country':
                 array_push($str, 'País');

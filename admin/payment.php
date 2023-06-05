@@ -178,16 +178,4 @@ function descuento_plania_gateway_init()
         return $settings;
     }
 
-    add_filter('woocommerce_available_payment_gateways', 'enable_for_assigned_page');
-
-    function enable_for_assigned_page($available_gateways)
-    {
-        if (isset($_COOKIE['compra']) && $_COOKIE['compra'] === 'mercadito') {
-            return $available_gateways;
-        } else {
-            // si no tiene el rol, deshabilita la pasarela de pago
-            unset($available_gateways['descuento_plania_gateway']);
-            return $available_gateways;
-        }
-    }
 }

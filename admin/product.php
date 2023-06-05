@@ -1,6 +1,6 @@
 <?php
 
-add_action('add_meta_boxes', 'custom_page_product_metabox');
+// add_action('add_meta_boxes', 'custom_page_product_metabox');
 
 function custom_page_product_metabox()
 {

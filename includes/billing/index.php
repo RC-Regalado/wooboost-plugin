@@ -7,6 +7,7 @@
     <input type="checkbox" name="order_data[]" value="date"> Fecha de la orden<br>
     <input type="checkbox" name="order_data[]" value="status"> Estado de la orden<br>
     <input type="checkbox" name="order_data[]" value="customer_name"> Nombre del cliente<br>
+    <input type="checkbox" name="order_data[]" value="type">Tipo de factura<br>
     <input type="checkbox" name="order_data[]" value="dui">DUI<br>
     <input type="checkbox" name="order_data[]" value="country">País<br>
     <input type="checkbox" name="order_data[]" value="state">Departamento<br>
