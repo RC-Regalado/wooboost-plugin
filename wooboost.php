@@ -5,7 +5,7 @@ Plugin Name: Wooboost
 Plugin URI: https://github.com/RC-Regalado/wooboost-plugin
 GitHub Plugin URI: https://github.com/RC-Regalado/wooboost-plugin
 Description: Plugin para mejora de administración
-Version: 0.2
+Version: 0.3
 Author: Ruben Regalado
 License: GPL2
 */

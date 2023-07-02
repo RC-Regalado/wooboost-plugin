@@ -1,4 +1,7 @@
-*.vim
+.nvim
 *.cache
 css/*.css
 css/*.map
+
+vendor/*
+wp-content/*

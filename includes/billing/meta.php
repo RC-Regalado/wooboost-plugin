@@ -46,6 +46,22 @@ function analize_meta()
 {
     $order_data = isset($_POST['order_data']) ? $_POST['order_data'] : array();
     $args = array();
+
+    $from = $_POST['date-from'];
+    $to = $_POST['date-to'];
+
+    if (!empty($from)) {
+        if (!empty($to)) {
+            $args = array('date_created' => $from . '...' . $to);
+        } else {
+            $args = array('date_created' => '>=' . $from);
+        }
+    } else if (!empty($to)) {
+        $args = array('date_created' => '<=' . $to);
+    }
+
+    $args += array('limit' => -1);
+
     $orders = wc_get_orders($args);
     $info = '';
     foreach ($orders as $order) {
@@ -63,6 +79,12 @@ function analize_meta()
                     break;
                 case 'customer_name':
                     $order_data['customer_name'] = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
+                    break;
+                case 'code':
+                    $order_data['code'] = get_post_meta($order->ID, "employee_code", true);
+                    break;
+                case 'area':
+                    $order_data['area'] = get_post_meta($order->ID, "area", true);
                     break;
                  case 'type':
                     $order_data['type'] = get_post_meta($order->ID, "bill_type", true);
@@ -83,7 +105,7 @@ function analize_meta()
                     $order_data['customer_email'] = $order->get_billing_email();
                     break;
                 case 'billing_address':
-                    $order_data['billing_address'] = $order->get_formatted_billing_address();
+                    $order_data['billing_address'] = '"' . get_department_name($order->get_billing_state()) . ", " . $order->get_billing_address_1() . '"';
                     break;
                 case 'shipping_address':
                     $order_data['shipping_address'] = $order->get_formatted_shipping_address();
@@ -131,6 +153,12 @@ function headers()
                 break;
             case 'customer_name':
                 array_push($str, 'Nombre');
+                break;
+            case 'code':
+                array_push($str, 'Código');
+                break;
+            case 'area':
+                array_push($str, 'Área');
                 break;
             case 'type':
                 array_push($str, 'Tipo de factura');

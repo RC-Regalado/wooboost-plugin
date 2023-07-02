@@ -87,8 +87,10 @@ function descuento_plania_gateway_init()
         // Procesar el pago
         public function process_payment($order_id)
         {
-            $order = wc_get_order($order_id);
-            $order = wc_create_order(array('customer_id' => get_current_user_id()));
+            global $woocommerce;
+
+            $order = new WC_Order($order_id);
+
             foreach ($cart_items as $cart_item_key => $cart_item) {
                 $product = $cart_item['data'];
                 $product_id = $product->get_id();
@@ -102,8 +104,10 @@ function descuento_plania_gateway_init()
             $order->set_address($shipping_address, 'shipping');
             $order->set_payment_method($payment_method);
             $order->calculate_totals();
-            $order->update_status('processing', 'Pago recibido mediante Descuento en Planilla');
-            WC()->cart->empty_cart();
+            $order->update_status('on-hold', "Esperando confirmación de descuento.");
+            
+            $woocommerce->cart->empty_cart();
+
             return array(
                 'result' => 'success',
                 'redirect' => $this->get_return_url($order)
@@ -159,15 +163,6 @@ function descuento_plania_gateway_init()
             'type' => 'title',
             'desc' => __('Configuración del descuento planía', 'descuento-plania-gateway'),
             'id' => 'descuento_plania_gateway_settings'
-        );
-
-        $settings[] = array(
-            'title' => __('Minimum Order Amount', 'descuento-plania-gateway'),
-            'type' => 'text',
-            'description' => __('Enter the minimum order amount for which the Descuento Planía Gateway payment method will be available', 'descuento-plania-gateway'),
-            'default' => '',
-            'desc_tip' => true,
-            'id' => 'descuento_plania_gateway_minimum_order_amount'
         );
 
         $settings[] = array(

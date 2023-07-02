@@ -1,23 +1,37 @@
-
 <h1>Ventas realizadas</h1>
 
 <form method="post" action="">
   <h4>Seleccione los datos a incluir en la estadística:</h4>
-  <div>
-    <input type="checkbox" name="order_data[]" value="date"> Fecha de la orden<br>
-    <input type="checkbox" name="order_data[]" value="status"> Estado de la orden<br>
-    <input type="checkbox" name="order_data[]" value="customer_name"> Nombre del cliente<br>
-    <input type="checkbox" name="order_data[]" value="type">Tipo de factura<br>
-    <input type="checkbox" name="order_data[]" value="dui">DUI<br>
-    <input type="checkbox" name="order_data[]" value="country">País<br>
-    <input type="checkbox" name="order_data[]" value="state">Departamento<br>
-    <input type="checkbox" name="order_data[]" value="phone">Teléfono<br>
-    <input type="checkbox" name="order_data[]" value="customer_email"> Correo electrónico del cliente<br>
-    <input type="checkbox" name="order_data[]" value="billing_address"> Dirección de facturación del cliente<br>
-    <input type="checkbox" name="order_data[]" value="payment_method"> Métodos de pago utilizados<br>
-    <input type="checkbox" name="order_data[]" value="products"> Productos<br>
-    <input type="checkbox" name="order_data[]" value="total"> Monto total<br>
+  <div style="padding-bottom: 1em;">
+    <label for="fecha">Datos desde:</label>
+    <input type="date" id="date-from" name="date-from">
+
+    <label for="fecha">Hasta:</label>
+    <input type="date" id="date-to" name="date-to">
   </div>
+  <div>
+    <div>
+      <input type="checkbox" name="order_data[]" value="date"> Fecha de la orden<br>
+      <input type="checkbox" name="order_data[]" value="status"> Estado de la orden<br>
+      <input type="checkbox" name="order_data[]" value="customer_name"> Nombre del cliente<br>
+      <input type="checkbox" name="order_data[]" value="type">Tipo de factura<br>
+      <input type="checkbox" name="order_data[]" value="dui">DUI<br>
+      <input type="checkbox" name="order_data[]" value="country">País<br>
+      <input type="checkbox" name="order_data[]" value="state">Departamento<br>
+      <input type="checkbox" name="order_data[]" value="phone">Teléfono<br>
+      <input type="checkbox" name="order_data[]" value="customer_email"> Correo electrónico del cliente<br>
+      <input type="checkbox" name="order_data[]" value="billing_address"> Dirección de facturación del cliente<br>
+      <input type="checkbox" name="order_data[]" value="payment_method"> Métodos de pago utilizados<br>
+      <input type="checkbox" name="order_data[]" value="products"> Productos<br>
+      <input type="checkbox" name="order_data[]" value="total"> Monto total<br>
+    </div>
+    <div>
+    <h4>Datos empleados</h4>
+      <input type="checkbox" name="order_data[]" value="area"> Área de la empresa <br>
+      <input type="checkbox" name="order_data[]" value="code"> Código de empleado <br>
+    </div>
+  </div>
+
   <br>
   <button type="submit" class="button">Generar informe</button>
 </form>
@@ -31,18 +45,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <style>
-table {
-  width: 90%;
-  border: 1px solid #ccc;
-  border-collapse: collapse;
-}
+  table {
+    width: 90%;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+  }
 
-th,
-td {
-  border: 1px solid #ccc;
-  padding: 10px;
-}
-
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
 </style>
 
 <?php
